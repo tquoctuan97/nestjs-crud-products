@@ -10,7 +10,6 @@ import { comparePassword } from './utils/hashPassword';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from '../users/entities/user.entity';
 import { Model } from 'mongoose';
-import { jwtConstants } from './constants';
 
 @Injectable()
 export class AuthService {
@@ -36,11 +35,11 @@ export class AuthService {
     const payload = { id: user.id, email: user.email, role: user.role };
 
     const accessToken = await this.jwtService.signAsync(payload, {
-      expiresIn: jwtConstants.accessTokenExpiryTime, // Short-lived access token
+      expiresIn: process.env.ACCESS_TOKEN_EXPIRY_TIME, // Short-lived access token
     });
 
     const refreshToken = await this.jwtService.signAsync(payload, {
-      expiresIn: jwtConstants.refreshTokenExpiryTime, // Long-lived refresh token
+      expiresIn: process.env.REFRESH_TOKEN_EXPIRY_TIME, // Long-lived refresh token
     });
 
     user.activeSessionList.push({
@@ -83,12 +82,12 @@ export class AuthService {
 
       // Generate a new access token
       const newAccessToken = await this.jwtService.signAsync(newPayload, {
-        expiresIn: jwtConstants.accessTokenExpiryTime,
+        expiresIn: process.env.ACCESS_TOKEN_EXPIRY_TIME,
       });
 
       // Generate a new refresh token
       const newRefreshToken = await this.jwtService.signAsync(newPayload, {
-        expiresIn: jwtConstants.refreshTokenExpiryTime,
+        expiresIn: process.env.REFRESH_TOKEN_EXPIRY_TIME,
       });
 
       // Update the refresh token in the database and
