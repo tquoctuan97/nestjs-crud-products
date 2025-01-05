@@ -11,6 +11,13 @@ export enum UserStatus {
   INACTIVE = 'inactive',
 }
 
+export interface ActiveSession {
+  refreshToken: string;
+  userAgent: string;
+  clientIp: string;
+  lastActiveDate: Date;
+}
+
 export class UserParams extends PaginationParams {
   @ApiPropertyOptional({
     description: '`active` | `inactive`',

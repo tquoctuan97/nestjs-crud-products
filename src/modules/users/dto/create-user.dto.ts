@@ -6,7 +6,7 @@ import {
   IsEmail,
   MaxLength,
 } from 'class-validator';
-import { Role, UserStatus } from '../models/user.model';
+import { ActiveSession, Role, UserStatus } from '../models/user.model';
 
 export class CreateUserDto {
   @ApiProperty()
@@ -40,4 +40,7 @@ export class CreateUserDto {
   })
   @IsEnum(UserStatus)
   status: string;
+
+  @ApiProperty()
+  activeSessionList: ActiveSession[];
 }

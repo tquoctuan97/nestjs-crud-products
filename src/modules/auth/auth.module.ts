@@ -16,7 +16,6 @@ import { User, UserSchema } from '../users/entities/user.entity';
     JwtModule.register({
       global: true,
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '30s' },
     }),
   ],
   providers: [

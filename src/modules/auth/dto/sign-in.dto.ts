@@ -18,3 +18,8 @@ export class ChangePasswordDto {
   @ApiProperty()
   confirmPassword: string;
 }
+
+export class RefreshTokenDto {
+  @ApiProperty()
+  refreshToken: string;
+}

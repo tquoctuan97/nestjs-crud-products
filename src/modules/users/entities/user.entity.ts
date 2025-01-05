@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { ApiProperty } from '@nestjs/swagger';
-import { Role, UserStatus } from '../models/user.model';
+import { ActiveSession, Role, UserStatus } from '../models/user.model';
 
 @Schema({ timestamps: true, versionKey: false })
 export class User extends Document {
@@ -35,7 +35,7 @@ export class User extends Document {
 
   @ApiProperty()
   @Prop({ required: false })
-  refreshToken?: string; // Store refresh token here (hashed if needed)
+  activeSessionList: ActiveSession[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

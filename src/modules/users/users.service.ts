@@ -34,7 +34,7 @@ export class UsersService {
       .skip((currentPage - 1) * pageSize)
       .limit(pageSize)
       .sort(query?.sort || '-createdAt')
-      .select('-password')
+      .select(['-password', '-activeSessionList'])
       .lean<User[]>()
       .exec();
 
@@ -53,7 +53,10 @@ export class UsersService {
   }
 
   async findById(id: string): Promise<Partial<User>> {
-    return await this.userModel.findById(id).select('-password').exec();
+    return await this.userModel
+      .findById(id)
+      .select(['-password', '-activeSessionList'])
+      .exec();
   }
 
   async findByEmail(email: string): Promise<User> {
