@@ -7,4 +7,8 @@ export enum AUDIT_LOG_ACTION_ENUM {
 export enum AUDIT_LOG_MODULE_ENUM {
   CUSTOMER = 'Customer',
   RETAILER = 'Retailer',
+  SUPPLIER = 'Supplier',
+  PURCHASE_ORDER = 'Purchase Order',
+  SUPPLY_ORDER = 'Supply Order',
+  GOODS = 'Goods',
 }

@@ -155,7 +155,7 @@ export class RetailerService {
     const updatedRetailer = await this.retailerModel
       .findByIdAndUpdate(id, { isDeleted: true }, { new: true })
       .exec();
-    if (!updatedRetailer || updatedRetailer.isDeleted) {
+    if (!updatedRetailer) {
       throw new NotFoundException(`Retailer with ID ${id} not found`);
     }
 
