@@ -18,7 +18,7 @@ export class CreateRetailerDto {
   address: string;
 
   @IsMongoId()
-  @IsNotEmpty()
+  @IsOptional()
   ownerId: Types.ObjectId;
 }
 
