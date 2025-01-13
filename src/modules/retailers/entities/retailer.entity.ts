@@ -12,7 +12,7 @@ export class Retailer extends Document {
   address: string;
 
   @Prop({ required: true, type: Types.ObjectId, ref: 'User' })
-  ownerId: string;
+  ownerId: Types.ObjectId;
 
   @Prop({ default: false })
   isDeleted: boolean;

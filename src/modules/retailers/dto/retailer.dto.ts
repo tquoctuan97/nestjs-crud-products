@@ -1,5 +1,12 @@
-import { IsString, IsBoolean, IsOptional, IsNotEmpty } from 'class-validator';
+import {
+  IsString,
+  IsBoolean,
+  IsOptional,
+  IsNotEmpty,
+  IsMongoId,
+} from 'class-validator';
 import { Type } from 'class-transformer';
+import { Types } from 'mongoose';
 
 export class CreateRetailerDto {
   @IsString()
@@ -10,9 +17,9 @@ export class CreateRetailerDto {
   @IsNotEmpty()
   address: string;
 
-  @IsString()
+  @IsMongoId()
   @IsNotEmpty()
-  ownerId: string;
+  ownerId: Types.ObjectId;
 }
 
 export class UpdateRetailerDto {
@@ -24,9 +31,9 @@ export class UpdateRetailerDto {
   @IsOptional()
   address?: string;
 
-  @IsString()
+  @IsMongoId()
   @IsOptional()
-  ownerId?: string;
+  ownerId?: Types.ObjectId;
 
   @IsBoolean()
   @IsOptional()
@@ -42,9 +49,9 @@ export class RetailerFilterDto {
   @IsOptional()
   address?: string;
 
-  @IsString()
+  @IsMongoId()
   @IsOptional()
-  ownerId?: string;
+  ownerId?: Types.ObjectId;
 
   @IsBoolean()
   @IsOptional()

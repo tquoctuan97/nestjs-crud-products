@@ -27,7 +27,10 @@ export class RetailerService {
   ) {}
 
   async create(createRetailerDto: CreateRetailerDto, req): Promise<Retailer> {
-    const retailer = new this.retailerModel(createRetailerDto);
+    const retailer = new this.retailerModel({
+      ...createRetailerDto,
+      ownerId: new mongoose.Types.ObjectId(req.user.id),
+    });
     const modifiedBy = (req as any).user?.id;
     try {
       // Save retailer
