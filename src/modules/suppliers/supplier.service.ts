@@ -30,7 +30,10 @@ export class SupplierService {
     createSupplierDto: CreateSupplierDto,
     req,
   ): Promise<SupplierDocument> {
-    const supplier = new this.supplierModel(createSupplierDto);
+    const supplier = new this.supplierModel({
+      ...createSupplierDto,
+      retailerId: new mongoose.Types.ObjectId(createSupplierDto.retailerId),
+    });
     const modifiedBy = (req as any).user?.id;
     try {
       // Save supplier
@@ -122,7 +125,18 @@ export class SupplierService {
       throw new NotFoundException('Supplier not found');
     }
     const updatedSupplier = await this.supplierModel
-      .findByIdAndUpdate(id, updateSupplierDto, { new: true })
+      .findByIdAndUpdate(
+        id,
+        {
+          ...updateSupplierDto,
+          ...(updateSupplierDto.retailerId && {
+            retailerId: new mongoose.Types.ObjectId(
+              updateSupplierDto.retailerId,
+            ),
+          }),
+        },
+        { new: true },
+      )
       .exec();
     if (!updatedSupplier || updatedSupplier.isDeleted) {
       throw new NotFoundException(`Supplier with ID ${id} not found`);

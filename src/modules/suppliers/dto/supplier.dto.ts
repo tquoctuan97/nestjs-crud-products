@@ -2,7 +2,6 @@ import {
   IsString,
   IsOptional,
   IsNotEmpty,
-  IsObject,
   IsMongoId,
   IsBoolean,
 } from 'class-validator';
@@ -18,7 +17,7 @@ export class CreateSupplierDto {
   @IsNotEmpty()
   name: string;
 
-  @IsObject()
+  @IsString()
   @IsOptional()
   contact?: string;
 }
@@ -32,7 +31,7 @@ export class UpdateSupplierDto {
   @IsOptional()
   name?: string;
 
-  @IsObject()
+  @IsString()
   @IsOptional()
   contact?: string;
 

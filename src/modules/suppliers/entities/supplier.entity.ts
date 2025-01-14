@@ -3,8 +3,8 @@ import { Document, Types } from 'mongoose';
 
 export type SupplierDocument = Supplier & Document;
 
-@Schema({ timestamps: true })
-export class Supplier {
+@Schema({ timestamps: true, versionKey: false })
+export class Supplier extends Document {
   @Prop({ required: true, type: Types.ObjectId, ref: 'Retailer' })
   retailerId: Types.ObjectId;
 
