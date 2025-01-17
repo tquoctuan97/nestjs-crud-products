@@ -9,6 +9,7 @@ import { RetailersModule } from './modules/retailers/retailers.module';
 import { AuditLogsModule } from './modules/audit-logs/audit-logs.module';
 import { SupplierModule } from './modules/suppliers/supplier.module';
 import { GoodsModule } from './modules/goods/goods.module';
+import { SupplyOrderModule } from './modules/supply-orders/supply-order.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -22,6 +23,7 @@ import { GoodsModule } from './modules/goods/goods.module';
     CustomersModule,
     RetailersModule,
     SupplierModule,
+    SupplyOrderModule,
     GoodsModule,
     AuditLogsModule,
   ],
