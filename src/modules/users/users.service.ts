@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { PaginationDto } from 'src/common/pagination/pagination.dto';
 import { hashPassword } from '../auth/utils/hashPassword';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -93,5 +93,61 @@ export class UsersService {
 
   async remove(id: string) {
     return this.userModel.findByIdAndDelete(id);
+  }
+
+  //Retailer role
+  async canAccessRetailer(
+    user: User,
+    retailerId: string,
+    accessType: 'owner' | 'moderator',
+  ): Promise<boolean> {
+    if (user.role === 'admin') {
+      return true; // Admins have access to all retailers
+    }
+
+    const userDetail = await this.userModel.findById(user.id).exec();
+
+    if (!userDetail) {
+      return false; // User not found
+    }
+
+    const retailerField =
+      accessType === 'owner' ? 'ownedRetailer' : 'modRetailer';
+
+    return !!userDetail[retailerField]?.includes(retailerId);
+  }
+
+  async addRetailerToUser(
+    userId: Types.ObjectId | string,
+    retailerId: string,
+    accessType: 'owner' | 'moderator',
+  ): Promise<User> {
+    const retailerField =
+      accessType === 'owner' ? 'ownedRetailer' : 'modRetailer';
+
+    return this.userModel
+      .findByIdAndUpdate(
+        userId,
+        { $addToSet: { [retailerField]: retailerId } }, // Use $addToSet to avoid duplicates
+        { new: true },
+      )
+      .exec();
+  }
+
+  async removeRetailerFromUser(
+    userId: Types.ObjectId | string,
+    retailerId: string,
+    accessType: 'owner' | 'moderator',
+  ): Promise<User> {
+    const retailerField =
+      accessType === 'owner' ? 'ownedRetailer' : 'modRetailer';
+
+    return this.userModel
+      .findByIdAndUpdate(
+        userId,
+        { $pull: { [retailerField]: retailerId } },
+        { new: true },
+      )
+      .exec();
   }
 }

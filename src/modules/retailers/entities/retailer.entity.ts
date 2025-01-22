@@ -14,8 +14,23 @@ export class Retailer extends Document {
   @Prop({ required: true, type: Types.ObjectId, ref: 'User' })
   ownerId: Types.ObjectId;
 
+  @Prop({ type: [Types.ObjectId], ref: 'User', default: [] })
+  modIds: Types.ObjectId[];
+
   @Prop({ default: false })
   isDeleted: boolean;
+
+  @Prop({ default: null, type: Date })
+  deletedAt: Date;
+
+  @Prop({ type: Types.ObjectId, ref: 'User', default: null })
+  createdBy: Types.ObjectId;
+
+  @Prop({ type: Types.ObjectId, ref: 'User', default: null })
+  lastUpdatedBy: Types.ObjectId;
+
+  @Prop({ type: Types.ObjectId, ref: 'User', default: null })
+  deletedBy: Types.ObjectId;
 }
 
 export const RetailerSchema = SchemaFactory.createForClass(Retailer);

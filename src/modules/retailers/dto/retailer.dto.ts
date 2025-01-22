@@ -4,6 +4,7 @@ import {
   IsOptional,
   IsNotEmpty,
   IsMongoId,
+  IsArray,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { Types } from 'mongoose';
@@ -31,9 +32,13 @@ export class UpdateRetailerDto {
   @IsOptional()
   address?: string;
 
-  @IsMongoId()
+  @IsString()
   @IsOptional()
   ownerId?: Types.ObjectId;
+
+  @IsArray()
+  @IsOptional()
+  modIds?: Types.ObjectId[];
 
   @IsBoolean()
   @IsOptional()
