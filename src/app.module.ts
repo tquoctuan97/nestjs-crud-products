@@ -1,15 +1,15 @@
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
-import { StoresModule } from './modules/stores/stores.module';
-import { CuisinesModule } from './modules/cuisines/cuisines.module';
+import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './modules/auth/auth.module';
-import { UsersModule } from './modules/users/users.module';
-import { ProductsModule } from './modules/products/products.module';
-import { ProductCategoriesModule } from './modules/product-categories/product-categories.module';
 import { BillsModule } from './modules/bills/bills.module';
 import { CustomersModule } from './modules/customers/customers.module';
-import { InsightModule } from './modules/insight/insight.module';
+import { UsersModule } from './modules/users/users.module';
+import { RetailersModule } from './modules/retailers/retailers.module';
+import { AuditLogsModule } from './modules/audit-logs/audit-logs.module';
+import { SupplierModule } from './modules/suppliers/supplier.module';
+import { GoodsModule } from './modules/goods/goods.module';
+import { SupplyOrderModule } from './modules/supply-orders/supply-order.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -17,15 +17,15 @@ import { InsightModule } from './modules/insight/insight.module';
       envFilePath: '.env',
     }),
     MongooseModule.forRoot(process.env.CONNECTIONSTRING),
-    ProductsModule,
-    StoresModule,
-    CuisinesModule,
     AuthModule,
     UsersModule,
-    ProductCategoriesModule,
     BillsModule,
     CustomersModule,
-    InsightModule,
+    RetailersModule,
+    SupplierModule,
+    SupplyOrderModule,
+    GoodsModule,
+    AuditLogsModule,
   ],
   // providers: [
   //   {

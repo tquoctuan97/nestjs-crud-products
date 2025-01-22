@@ -36,6 +36,16 @@ export class User extends Document {
   @ApiProperty()
   @Prop({ required: false })
   activeSessionList: ActiveSession[];
+
+  //retailer
+
+  @ApiProperty()
+  @Prop({ type: [String], default: [] })
+  ownedRetailer: string[];
+
+  @ApiProperty()
+  @Prop({ type: [String], default: [] })
+  modRetailer: string[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
